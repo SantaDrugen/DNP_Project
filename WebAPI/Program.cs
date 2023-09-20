@@ -1,4 +1,15 @@
+using Application.DaoInterfaces;
+using Application.Logic;
+using Application.LogicInterfaces;
+using FileData;
+using FileData.DAOs;
+
 var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.AddScoped<FileContext>();
+builder.Services.AddScoped<IUserDao, UserFileDao>();
+builder.Services.AddScoped<IUserLogic, UserLogic>();
 
 // Add services to the container.
 
