@@ -7,7 +7,33 @@
     {
       "Id": 2,
       "UserName": "TordenKusse"
+    },
+    {
+      "Id": 3,
+      "UserName": "Fisk"
+    },
+    {
+      "Id": 4,
+      "UserName": "FiskeMad"
+    },
+    {
+      "Id": 5,
+      "UserName": "Jens"
+    },
+    {
+      "Id": 6,
+      "UserName": "MasterDebater"
     }
   ],
-  "Todos": []
+  "Todos": [
+    {
+      "Id": 1,
+      "Owner": {
+        "Id": 1,
+        "UserName": "SantaDrugen"
+      },
+      "Title": "todo1",
+      "IsCompleted": false
+    }
+  ]
 }
