@@ -1,5 +1,6 @@
 using Application.DaoInterfaces;
 using Domain;
+using Domain.DTOs;
 
 namespace FileData.DAOs;
 
@@ -27,5 +28,10 @@ public class TodoFileDao : ITodoDao
         context.SaveChanges();
 
         return Task.FromResult(todo);
+    }
+
+    public Task<IEnumerable<Todo>> GetAsync(SearchTodoParametersDto searchParameters)
+    {
+        throw new NotImplementedException();
     }
 }

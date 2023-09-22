@@ -32,6 +32,11 @@ public class TodoLogic : ITodoLogic
         return created;
     }
 
+    public Task<IEnumerable<Todo>> GetAsync(SearchTodoParametersDto searchParameters)
+    {
+        return todoDao.GetAsync(searchParameters);
+    }
+
     private void ValidateTodo(TodoCreationDto dto)
     {
         if (string.IsNullOrEmpty(dto.Title))
