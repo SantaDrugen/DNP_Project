@@ -35,7 +35,11 @@ public class TodoController : ControllerBase
             Console.WriteLine(e);
             return StatusCode(400, e.Message);
         }
-        
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
     }
     
     [HttpGet]
@@ -47,6 +51,26 @@ public class TodoController : ControllerBase
             SearchTodoParametersDto parameters = new(userName, userId, completedStatus, titleContains);
             var todos = await todoLogic.GetAsync(parameters);
             return Ok(todos);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<TodoGetDto>> GetByIdAsync(int id)
+    {
+        try
+        {
+            TodoGetDto todo = await todoLogic.GetByIdAsync(id);
+            return Ok(todo);
+        }
+        catch (NoTodoByIdException e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(400, e.Message);
         }
         catch (Exception e)
         {
@@ -77,6 +101,36 @@ public class TodoController : ControllerBase
         {
             Console.WriteLine(e);
             return StatusCode(400, e.Message);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpDelete("{id:int}")]
+    public async Task<ActionResult> DeleteAsync(int id)
+    {
+        try
+        {
+            await todoLogic.DeleteAsync(id);
+            return Ok();
+        }
+        catch (NoTodoByIdException e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(400, e.Message);
+        }
+        catch (CannotDeleteUncompletedTodoException e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(400, e.Message);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
         }
     }
 }

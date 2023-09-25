@@ -62,15 +62,24 @@ public class TodoFileDao : ITodoDao
 
     public Task UpdateAsync(Todo todo)
     {
-        Todo? existing = context.Todos.FirstOrDefault(t => t.Id == todo.Id);
+        DeleteAsync(todo.Id);
+        
+        context.Todos.Add(todo);
+        
+        context.SaveChanges();
+        
+        return Task.CompletedTask;
+    }
+    
+    public Task DeleteAsync(int id)
+    {
+        Todo? existing = context.Todos.FirstOrDefault(t => t.Id == id);
         if (existing == null)
         {
-            throw new KeyNotFoundException($"Todo with id {todo.Id} not found");
+            throw new KeyNotFoundException($"Todo with id {id} not found");
         }
 
         context.Todos.Remove(existing);
-        context.Todos.Add(todo);
-        
         context.SaveChanges();
         
         return Task.CompletedTask;
@@ -80,5 +89,20 @@ public class TodoFileDao : ITodoDao
     {
         Todo? existing = context.Todos.FirstOrDefault(t => t.Id == id);
         return Task.FromResult(existing);
+    }
+    
+    public Task<TodoGetDto> GetByIdDtoAsync(int id)
+    {
+        Todo? existing = GetByIdAsync(id).Result;
+        
+        TodoGetDto dto = new()
+        {
+            TodoId = existing.Id,
+            Username = existing.Owner.UserName,
+            Title = existing.Title,
+            CompletedStatus = existing.IsCompleted,
+        };
+        
+        return Task.FromResult(dto);
     }
 }

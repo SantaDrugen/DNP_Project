@@ -34,6 +34,15 @@
       },
       "Title": "todo1",
       "IsCompleted": false
+    },
+    {
+      "Id": 2,
+      "Owner": {
+        "Id": 1,
+        "UserName": "SantaDrugen"
+      },
+      "Title": "fisk",
+      "IsCompleted": false
     }
   ]
 }

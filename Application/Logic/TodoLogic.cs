@@ -36,6 +36,14 @@ public class TodoLogic : ITodoLogic
     {
         return todoDao.GetAsync(searchParameters);
     }
+    
+    public async Task<TodoGetDto> GetByIdAsync(int id)
+    {
+        Todo? existing = await todoDao.GetByIdAsync(id);
+        if (existing == null)
+            throw new NoTodoByIdException($"Todo with id {id} was not found");
+        return await todoDao.GetByIdDtoAsync(id);
+    }
 
     public async Task UpdateAsync(TodoUpdateDto dto)
     {
@@ -70,6 +78,21 @@ public class TodoLogic : ITodoLogic
 
         await todoDao.UpdateAsync(updated);
     }
+    
+    public async Task DeleteAsync(int id)
+    {
+        Todo? existing = await todoDao.GetByIdAsync(id);
+        if (existing == null)
+            throw new NoTodoByIdException($"Todo with id {id} was not found");
+
+        if (!existing.IsCompleted)
+            throw new CannotDeleteUncompletedTodoException(
+                $"Todo with id {id} is not completed, and cannot be deleted");
+        
+        await todoDao.DeleteAsync(id);
+    }
+    
+    
 
     private void ValidateTodo(TodoCreationDto dto)
     {

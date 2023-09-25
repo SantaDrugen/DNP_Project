@@ -36,6 +36,11 @@ public class UserController : ControllerBase
             Console.WriteLine(e);
             return StatusCode(400, e.Message);
         }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
     }
 
 
