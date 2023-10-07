@@ -1,6 +1,8 @@
 @page "/CreateUser"
 @using HttpClients.ClientInterfaces
 @using Domain.DTOs
+@using Radzen
+@using Radzen.Blazor
 @inject IUserService userService
 <h3>CreateUser</h3>
 
@@ -18,6 +20,10 @@
         <button @onclick="Create" disabled="@(string.IsNullOrEmpty(username))" class="acceptbtn">Create</button>
     </div>
 </div>
+
+@code {
+    bool sidebar1Expanded = true;
+}
 
 @code {
     private string username = "";

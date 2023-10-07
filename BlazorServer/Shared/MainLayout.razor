@@ -1,19 +1,43 @@
 ﻿@inherits LayoutComponentBase
+@using Radzen
+@using Radzen.Blazor
 
 <PageTitle>BlazorServer</PageTitle>
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu/>
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+<RadzenLayout style="height: 100vh">
+    <RadzenHeader>
+        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem">
+            <RadzenSidebarToggle Click="@(() => sidebar1Expanded = !sidebar1Expanded)" />
+            <RadzenLabel Text="Todo or not todo, depends whom is asking" />
+        </RadzenStack>
+    </RadzenHeader>
+    <RadzenSidebar Style="width:max(20vw, auto)">
+        <RadzenPanelMenu DisplayStyle="@(sidebar1Expanded?MenuItemDisplayStyle.IconAndText:MenuItemDisplayStyle.Icon)" ShowArrow=true>
+            <RadzenPanelMenuItem Text="Overview" Icon="home" Path=""/>
+            <RadzenPanelMenuItem Text="Users" Icon="account_box">
+                <RadzenPanelMenuItem Text="Create User" Icon="assignment_ind" Path="CreateUser"/>
+                <RadzenPanelMenuItem Text="Manage Users" Icon="people"/>
+            </RadzenPanelMenuItem>
+            <RadzenPanelMenuItem Text="Todos" Icon="done_all">
+                <RadzenPanelMenuItem Text="all" Icon="assignment"/>
+                <RadzenPanelMenuItem Text="ongoing" Icon="donut_large"/>
+                <RadzenPanelMenuItem Text="completed" Icon="done"/>
+            </RadzenPanelMenuItem>
+        </RadzenPanelMenu>
+        <div class="rz-p-4">
+            Sidebar
         </div>
-
-        <article class="content px-4">
+    </RadzenSidebar>
+    <RadzenBody>
+        <div class="rz-p-4">
             @Body
-        </article>
-    </main>
-</div>
+        </div>
+    </RadzenBody>
+    <RadzenFooter>
+        Don't look at me, I'm just a footer... you weirdo
+    </RadzenFooter>
+</RadzenLayout>
+
+@code {
+    bool sidebar1Expanded = true;
+}
