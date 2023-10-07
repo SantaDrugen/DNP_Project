@@ -19,7 +19,7 @@ public class UserController : ControllerBase
 
 
     [HttpPost]
-    public async Task<ActionResult<User>> CreateAsync(UserCreationDto dto)
+    public async Task<ActionResult<User>> CreateAsync([FromBody] UserCreationDto dto)
     {
         try
         {
