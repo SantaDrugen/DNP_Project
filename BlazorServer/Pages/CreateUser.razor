@@ -4,32 +4,32 @@
 @using Radzen
 @using Radzen.Blazor
 @inject IUserService userService
+@inherits LayoutComponentBase
 <h3>CreateUser</h3>
 
-<div class="card">
-    <h3>Create User</h3>
-    <div class="form-group field">
-        <label>User name:</label>
+<div>
+    <RadzenText TextStyle="TextStyle.H1">
+        Create User
+    </RadzenText>
+    <RadzenCard>
+        <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">
+            <label>User name:</label>
+        </RadzenText>
         <input type="text" @bind="username" @bind:event="oninput"/>
-        @if (!string.IsNullOrEmpty(resultMsg))
-        {
-            <label style="color: @colour">@resultMsg</label>
-        }
-    </div>
-    <div class="button-row">
-        <button @onclick="Create" disabled="@(string.IsNullOrEmpty(username))" class="acceptbtn">Create</button>
-    </div>
+                @if (!string.IsNullOrEmpty(resultMsg))
+                {
+                    <label style="color: @colour">@resultMsg</label>
+                }
+        <button class="rz-mx-2" @onclick="Create" disabled="@(string.IsNullOrEmpty(username))">Create</button>
+    </RadzenCard>
 </div>
 
-@code {
-    bool sidebar1Expanded = true;
-}
 
 @code {
     private string username = "";
     private string resultMsg = "";
     private string colour = "";
-    
+
     private async Task Create()
     {
         resultMsg = "";
@@ -48,4 +48,5 @@
             colour = "red";
         }
     }
+
 }

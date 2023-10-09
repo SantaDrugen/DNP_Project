@@ -14,4 +14,13 @@
       <PackageReference Include="Radzen.Blazor" Version="4.16.4" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="Pages\CreateUserCSS.css">
+        <DependentUpon>CreateUser.razor</DependentUpon>
+      </None>
+      <None Update="Shared\MainLayoutCSS.css">
+        <DependentUpon>MainLayout.razor</DependentUpon>
+      </None>
+    </ItemGroup>
+
 </Project>
